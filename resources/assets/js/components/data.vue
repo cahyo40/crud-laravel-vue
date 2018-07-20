@@ -84,6 +84,7 @@ export default{
                 console.log(vm.datas.nama);
             });
         },
+
         edit(id){
             var vm = this;
             var tambahData = vm.datas;
