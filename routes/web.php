@@ -17,8 +17,14 @@ Route::get('/', function () {
 Route::get('/data',function(){
     return view('data');
 });
+Route::get('/chat',function(){
+    return view('chat');
+});
 Route::get('/api/data','AnggotaController@index');
+Route::get('/api/data/{cari}','AnggotaController@index1');
 Route::post('/api/data','AnggotaController@store');
 Route::delete('/api/data/{id}','AnggotaController@destroy');
 Route::get('/api/data/{id}/pilih','AnggotaController@show');
 Route::post('/api/data/{id}/edit','AnggotaController@update');
+Route::get('/api/chat','ChatController@index');
+Route::post('/api/chat','ChatController@store');

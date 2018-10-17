@@ -12,12 +12,17 @@ class AnggotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Anggota::paginate(50);
+        $search = $request->search;
+        $data = Anggota::where('nama','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->orWhere('alamat','LIKE',"%$search%")->paginate(10);
         return response()->json(['data' =>$data]);
     }
-
+    public function index1($cari)
+    {
+        $data = Anggota::where('nama','LIKE',"%$cari%")->orWhere('email','LIKE',"%$cari%")->orWhere('alamat','LIKE',"%$cari%")->paginate(10);
+        return response()->json(['data' =>$data]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -39,8 +44,8 @@ class AnggotaController extends Controller
         $request->validate([
             'nama'      => 'required',
             'alamat'    =>  'required',
-            'telepon'   =>  'required',
-            'email'     =>  'required'
+            'telepon'   =>  'required|numeric',
+            'email'     =>  'required|email'
         ]);
         $store = Anggota::create($request->all());
         return response()->json($store);
